@@ -1,0 +1,6 @@
+Project: ARXMLRag — RAG + GraphRAG system over AUTOSAR Classic ARXML files. Domain-specific application built on top of the RAGLab platform.
+Stack: Python 3.12, uv, FastAPI, Pydantic v2, Qdrant, Neo4j Community, BGE-reranker-v2-m3, PydanticAI, LangFuse, Ragas + DeepEval, Arq + Redis, Supabase Postgres, Next.js 15 frontend (separate package later).
+Hard rules: no LangChain, no LlamaIndex. Pydantic v2 only. uv for deps. Ruff + mypy strict. Direct SDK calls (OpenAI, Anthropic). One feature branch per roadmap step. Conventional commits.
+Architecture: ingestion (ARXML → typed objects → enriched descriptions) → dual index (Qdrant for semantic, DuckDB for exact, Neo4j for graph) → query router (PydanticAI agent) → answer generator with citations → FastAPI exposes /query and /ingest endpoints.
+Out of scope for MVP: frontend, auth, multi-tenant, fine-tuning.
+Coding conventions: frozen Pydantic models, Protocol over ABC, stable IDs for idempotent re-ingestion, no magic strings (constants in config.py).
